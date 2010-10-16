@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Creditor user:</b>
+  <%= @payment.creditor_user_id %>
+</p>
+
+<p>
+  <b>Debitor user:</b>
+  <%= @payment.debitor_user_id %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%= @payment.amount %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @payment.date %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @payment.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_payment_path(@payment) %> |
+<%= link_to 'Back', payments_path %>
