@@ -11,6 +11,10 @@ class Project < ActiveRecord::Base
     joins(:memberships).where('memberships.user_id' => user.id, 'memberships.is_bank' => true)
   }
 
+  def self.[](name)
+    self.find_or_create_by_name name
+  end
+
   def total_cost
     self.expenses.sum(:amount)
   end

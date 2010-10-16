@@ -4,10 +4,10 @@ class User < ActiveRecord::Base
   has_many :projects,
       :through => :memberships
   has_many :received_payments,
-      :class_name  => Payment,
+      :class_name  => 'Payment',
       :foreign_key => :creditor_user_id
   has_many :issued_payments,
-      :class_name  => Payment,
+      :class_name  => 'Payment',
       :foreign_key => :debitor_user_id
 
   validates_presence_of :login
@@ -26,9 +26,17 @@ class User < ActiveRecord::Base
 
   end
 
-  def amount_spent
-    self.expenses.sum(:amount)
+  def amount_payed_to(user)
+    self.issued_payments.where(:creditor_user_id => user.id).sum(:amount)
   end
+
+  def amount_received_from(user)
+    self.received_payments.where(:debitor_user_id => user.id).sum(:amount)
+  end
+
+#   def amount_spent
+#     self.expenses.sum(:amount)
+#   end
 
   def amount_spent_on(project)
     self.expenses.where(:project_id => project.id).sum(:amount)
@@ -36,6 +44,10 @@ class User < ActiveRecord::Base
 
   def balance_for(project)
     project.cost_per_person - self.amount_spent_on(project)
+  end
+
+  def pays(amount)
+    self.issued_payments.build(:amount => amount)
   end
 
   def spends(amount)
