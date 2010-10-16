@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ExpensesControllerTest < ActionController::TestCase
   setup do
-    @expense = expenses(:one)
+    @expense = Factory.create :expense
   end
 
   test "should get index" do

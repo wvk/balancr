@@ -2,7 +2,7 @@ require 'test_helper'
 
 class MembershipsControllerTest < ActionController::TestCase
   setup do
-    @membership = memberships(:one)
+    @membership = Factory.create :membership
   end
 
   test "should get index" do
@@ -18,7 +18,7 @@ class MembershipsControllerTest < ActionController::TestCase
 
   test "should create membership" do
     assert_difference('Membership.count') do
-      post :create, :membership => @membership.attributes
+      post :create, :membership => {:project_id => Project['test'].id, :user_id => User['test'].id}
     end
 
     assert_redirected_to membership_path(assigns(:membership))
