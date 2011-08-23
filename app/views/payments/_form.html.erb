@@ -1,7 +1,7 @@
 <%= form_for(@payment) do |f| %>
   <% if @payment.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
+      <h2>Payment could not be completed:</h2>
 
       <ul>
       <% @payment.errors.full_messages.each do |msg| %>
@@ -12,26 +12,27 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :creditor_user_id %><br />
-    <%= f.text_field :creditor_user_id %>
+    <%= f.label :debitor_user_id %>
+    <%= f.collection_select :debitor_user_id, User.all, :id, :full_name %>
+    <%= f.label :amount, 'pays an amount of' %>
+    <%= f.text_field :amount, :size => 6 %>
+    <%= f.label :creditor_user_id, 'to' %>
+    <%= f.collection_select :creditor_user_id, User.all, :id, :full_name %>
   </div>
-  <div class="field">
-    <%= f.label :debitor_user_id %><br />
-    <%= f.text_field :debitor_user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :amount %><br />
-    <%= f.text_field :amount %>
-  </div>
+
   <div class="field">
     <%= f.label :date %><br />
     <%= f.date_select :date %>
   </div>
+
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name, 'Remarks' %><br />
     <%= f.text_field :name %>
   </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <button type="submit" class="text-only">
+      Save
+    </button>
   </div>
 <% end %>

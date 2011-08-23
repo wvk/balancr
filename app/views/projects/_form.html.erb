@@ -17,11 +17,15 @@
   </div>
   <div class="field">
     <%= f.label :description %><br />
-    <%= f.text_field :description %>
+    <%= f.text_area :description, :size => '75x5' %>
   </div>
   <div class="field">
     <%= f.label :date %><br />
     <%= f.date_select :date %>
+  </div>
+  <div class="field">
+    <%= f.label :bank_id %><br />
+    <%= f.collection_select :bank_id, @project.users, :id, :full_name, :include_blank => 'no bank' %>
   </div>
   <div class="actions">
     <%= f.submit %>

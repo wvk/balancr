@@ -1,0 +1,39 @@
+<h2 class="login">Login</h2>
+
+<div class="small-container">
+  <%= form_for @user, :as => :login, :url => login_path  do |f| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h3>Login fehlgeschlagen</h3>
+
+        <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :login, 'Benutzername' %><br />
+      <%= f.text_field :login %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password, 'Kennwort' %><br />
+      <%= f.password_field :password %>
+    </div>
+
+    <hr />
+
+    <div class="actions">
+      <button type="submit" class="text-only">
+        Einloggen
+      </button>
+    </div>
+  <% end %>
+</div>
+
+<hr />
+
+<%= link_to 'Neues Konto anlegen', registration_path %>

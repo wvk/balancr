@@ -10,20 +10,64 @@ class User < ActiveRecord::Base
       :class_name  => 'Payment',
       :foreign_key => :debitor_user_id
 
+  attr_accessor :password, :terms_accepted
+
+  before_save :encrypt_password
+
+  scope :without, lambda {|*user_ids|
+    user_ids = user_ids.flatten
+    if user_ids.empty?
+      {}
+    else
+      where ['users.id NOT IN (?)', user_ids]
+    end
+  }
+
+  scope :in_projects, lambda {|*project_ids|
+    where('memberships.project_id' => project_ids.flatten).includes(:memberships)
+  }
+
   validates_presence_of :login
+  validates_confirmation_of :password,
+      :on => :update
 
   def self.[](login)
     self.find_or_create_by_login login
   end
 
-  def balance_to(user)
-    own_project_ids = self.project_ids
-    shared_projects = Project.having_as_bank(user).select{|project| own_project_ids.include? project.id }
-    return shared_projects.collect{|project| self.balance_for project }.sum
+  def full_name
+    "#{self.forename} #{self.surname}"
   end
 
-  def amount_owed
+  # amount owed to or owed by other user.
+  # a negative amount means: self owes money to user.
+  # a positive amount means: user owes money to self.
+  def balance_to(user)
+    shared_projects     = user.projects.where('projects.id' => self.project_ids)
+    money_from_projects = shared_projects.reduce(0.0) do |sum, project|
+      case project.bank
+      when user
+        sum - self.balance_for(project)
+      when self
+        sum + user.balance_for(project)
+      when nil
+        sum + (self.amount_spent_on(project) - user.amount_spent_on(project)) / project.users.count
+      else
+        sum
+      end
+    end
+    money_from_projects + self.amount_payed_to(user) - self.amount_received_from(user)
+  end
 
+  def payment_instruction_for(user)
+    balance = balance_to user
+    if balance < 0
+      %q(You owe %s %0.2f€) % [user.full_name, -balance]
+    elsif balance > 0
+      %q(You get %0.2f€ from %s) % [balance, user.full_name]
+    else
+      %q(You're all good with %s) % user.full_name
+    end
   end
 
   def amount_payed_to(user)
@@ -58,4 +102,23 @@ class User < ActiveRecord::Base
     self.memberships.create :project => project
   end
 
+  def leaves(project)
+    self.memberships.where(:project_id => project.id).first.destroy
+  end
+
+  def member_of?(project)
+    project.memberships.where(:project_id => project.id).exists?
+  end
+
+  def password_matches?(passwd)
+    Digest::SHA1.hexdigest(passwd) == password_hash
+  end
+
+  def encrypt_password
+    self.password_hash = Digest::SHA1.hexdigest(@password) if @password
+  end
+
+  def friends
+    User.includes(:memberships).where(['memberships.project_id IN (?) AND users.id != ?', self.project_ids, self.id])
+  end
 end

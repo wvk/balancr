@@ -1,9 +1,4 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @project.name %>
-</p>
+<h2><%= @project.name %></h2>
 
 <p>
   <b>Description:</b>
@@ -15,6 +10,74 @@
   <%= @project.date %>
 </p>
 
+<% if @project.users.any? %>
+  <h3>Project Expenses and Balance</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>user</th>
+        <% @project.memberships.each do |membership| %>
+          <td>
+            <%= link_to membership.user.full_name, membership.user %>
+            <%= form_for membership, :html => {:method => :delete} do |f| %>
+              <%= hidden_referrer_input_tag %>
+              <%= f.submit 'x'%>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @project.expenses.each do |expense| %>
+        <tr>
+          <th><%= expense.name %></th>
+          <% @project.users.each do |user| %>
+            <% if expense.user_id == user.id %>
+              <td class="money"><%=link_to m(expense.amount), expense %></td>
+            <% else %>
+              <td> </td>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+      <tr>
+        <th></th>
+        <% @project.users.each do |user| %>
+          <td>
+            <%= link_to '+ new', new_expense_path(:user_id => user.id, :project_id => @project.id), :class => 'add' %>
+          </td>
+        <% end %>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th>amount spent</th>
+        <% @project.users.each do |user| %>
+          <td class="money"><%=m user.amount_spent_on @project %></td>
+        <% end %>
+        <td class="money bold">
+          <%= m @project.total_cost %>
+        </td>
+      </tr>
+      <tr>
+        <th>balance</th>
+        <% @project.users.each do |user| %>
+          <td class="money"><%=m user.balance_for @project %></td>
+        <% end %>
+      </tr>
+    </tfoot>
+  </table>
+<% end %>
+
+<%= form_for(@project) do |f| %>
+  <%= f.fields_for :memberships, Membership.new do |uf| %>
+    <%= uf.collection_select :user_id, User.except(@project.user_ids).all, :id, :login %>
+  <% end %>
+
+  <%= f.submit 'add user' %>
+<% end %>
 
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>
+

@@ -24,7 +24,7 @@ class ExpensesController < ApplicationController
   # GET /expenses/new
   # GET /expenses/new.xml
   def new
-    @expense = Expense.new
+    @expense = Expense.new params.slice(:user_id, :project_id)
 
     respond_to do |format|
       format.html # new.html.erb

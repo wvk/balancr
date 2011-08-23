@@ -12,17 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.text_field :user_id %>
+    <%= f.label :user_id, 'User' %>
+    <%= f.collection_select :user_id, User.all, :id, :full_name, :include_blank => true %>
+    <%= f.label :project_id, 'joins Project' %>
+    <%= f.collection_select :project_id, Project.all, :id, :name, :include_blank => true %>
   </div>
-  <div class="field">
-    <%= f.label :project_id %><br />
-    <%= f.text_field :project_id %>
-  </div>
-  <div class="field">
-    <%= f.label :is_bank %><br />
-    <%= f.check_box :is_bank %>
-  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

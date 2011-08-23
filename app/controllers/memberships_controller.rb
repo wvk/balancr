@@ -24,7 +24,7 @@ class MembershipsController < ApplicationController
   # GET /memberships/new
   # GET /memberships/new.xml
   def new
-    @membership = Membership.new
+    @membership = Membership.new :project_id => params[:project_id], :user_id => params[:user_id]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -47,7 +47,7 @@ class MembershipsController < ApplicationController
         format.html { redirect_to(@membership, :notice => 'Membership was successfully created.') }
         format.xml  { render :xml => @membership, :status => :created, :location => @membership }
       else
-        format.html { render :action => "new" }
+        format.html { render :action => 'new' }
         format.xml  { render :xml => @membership.errors, :status => :unprocessable_entity }
       end
     end
@@ -63,7 +63,7 @@ class MembershipsController < ApplicationController
         format.html { redirect_to(@membership, :notice => 'Membership was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { render :action => 'edit' }
         format.xml  { render :xml => @membership.errors, :status => :unprocessable_entity }
       end
     end
@@ -76,7 +76,7 @@ class MembershipsController < ApplicationController
     @membership.destroy
 
     respond_to do |format|
-      format.html { redirect_to(memberships_url) }
+      format.html { redirect_to back_or_default(memberships_url) }
       format.xml  { head :ok }
     end
   end

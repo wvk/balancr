@@ -2,11 +2,16 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.xml
   def index
-    @projects = Project.all
+    if params[:q]
+      @projects = Project.order(:date).where('name LIKE ?', "%#{params[:q]}%").all
+    else
+      @projects = Project.order(:date).all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @projects }
+      format.xml  { render :xml  => @projects }
+      format.json { render :json => @projects }
     end
   end
 
@@ -79,5 +84,24 @@ class ProjectsController < ApplicationController
       format.html { redirect_to(projects_url) }
       format.xml  { head :ok }
     end
+  end
+
+  def assign
+    redirect_to new_membership_path(:project_id => params[:id])
+  end
+
+  def invite
+    redirect_to new_invitation_path(:project_id => params[:id])
+  end
+
+  protected
+
+  def perform_basic_auth
+    authorize! :access, Project
+  end
+
+  def access_denied
+    flash[:error] = 'You do not have sufficient access rights to access projects.'
+    redirect_to dashboard_path
   end
 end

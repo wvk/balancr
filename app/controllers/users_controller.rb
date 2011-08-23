@@ -1,3 +1,5 @@
+require 'fastercsv'
+
 class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
@@ -18,6 +20,14 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user }
+    end
+  end
+
+  def password
+    @user = User.find(params[:user_id])
+
+    respond_to do |format|
+      format.html # password.html.erb
     end
   end
 
@@ -63,7 +73,7 @@ class UsersController < ApplicationController
         format.html { redirect_to(@user, :notice => 'User was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { render :action => 'edit' }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
       end
     end
@@ -80,4 +90,32 @@ class UsersController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def projects
+    @user = User.find(params[:user_id])
+    @projects = @user.projects
+
+    respond_to do |format|
+      format.xml  { render :xml  => @projects }
+      format.json { render :json => @projects }
+    end
+  end
+
+  def balance
+    @users = User.all
+    csv = FasterCSV.generate do |csv|
+      csv << ['User'] + @users.map(&:full_name)
+      @users.each do |user|
+        csv << [user.full_name] + @users.map {|balance_user| user.balance_to balance_user }
+      end
+    end
+    render :text => csv
+  end
+
+  protected
+
+  def perform_basic_auth
+    authorize! :access, User
+  end
+
 end

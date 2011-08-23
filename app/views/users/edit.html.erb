@@ -1,6 +1,10 @@
-<h1>Editing user</h1>
+<h2>Edit User</h2>
 
-<%= render 'form' %>
+<div class="small-container">
+  <%= render 'form' %>
+</div>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+<p class="bottom-nav">
+  <%= link_to 'Show', @user, :class => 'bottom-link' %>
+  <%= link_to 'Back', users_path, :class => 'bottom-link' %>
+</p>

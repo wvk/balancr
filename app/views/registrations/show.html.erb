@@ -1,0 +1,69 @@
+<p>
+  <b>Login:</b>
+  <%= @user.login %>
+</p>
+
+<p>
+  <b>Forename:</b>
+  <%= @user.forename %>
+</p>
+
+<p>
+  <b>Surname:</b>
+  <%= @user.surname %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @user.email %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
+
+<h2>Projects</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Project Name</th>
+      <th>Amount spent</th>
+      <th>Amount to pay</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.projects.each do |project| %>
+      <tr>
+        <td><%= project.name %></td>
+        <td class="money"><%=m @user.amount_spent_on project %></td>
+        <td class="money"><%=m @user.balance_for project %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Payments</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>User Name</th>
+      <th>payed</th>
+      <th>received</th>
+      <th>total balance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% User.where('id <> ?', @user.id).each do |user| %>
+      <tr>
+        <td><%= user.login %></td>
+        <td class="money"><%=m @user.amount_payed_to user %></td>
+        <td class="money"><%=m @user.amount_received_from user %></td>
+        <td class="money"><%=m @user.balance_to user %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

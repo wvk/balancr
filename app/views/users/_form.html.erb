@@ -16,10 +16,6 @@
     <%= f.text_field :login %>
   </div>
   <div class="field">
-    <%= f.label :password_hash %><br />
-    <%= f.text_field :password_hash %>
-  </div>
-  <div class="field">
     <%= f.label :forename %><br />
     <%= f.text_field :forename %>
   </div>
@@ -32,6 +28,8 @@
     <%= f.text_field :email %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <button type="submit" class="text-only">
+      Save
+    </button>
   </div>
 <% end %>

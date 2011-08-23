@@ -1,0 +1,138 @@
+@font-face {
+  font-family: 'UnifrakturCook';
+  font-style: normal;
+  font-weight: bold;
+  src: local('UnifrakturCook'), url('unifrakturcook-bold.ttf') format('truetype');
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: UnifrakturCook, Palatino, Georgia, Garamond, serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  display: block;
+  height: 60px;
+  background: #111;
+  margin: 0;
+}
+
+footer {
+  display: block;
+  height: 60px;
+  background: #111;
+  margin: 0;
+}
+
+h1 {
+  line-height: 60px;
+  font-size: 48px;
+  text-align: center;
+}
+
+hr {
+  height: 10px;
+  border: none;
+  background-color: transparent;
+}
+
+#main-container {
+  width: 800px;
+  margin: auto;
+}
+
+.small-container {
+  margin: 20px 20% 0 20%;
+  width: 60%;
+  border: 1px solid #666;
+  background-color: #222;
+  border-radius: 10px;
+  padding: 2%;
+}
+
+.actions {
+  text-align: right;
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  background-color: #333;
+  padding: .5em .9em;
+}
+
+td {
+  padding: .2em .4em;
+  color: #fff;
+}
+
+td.money {
+  font-family: monospace;
+  text-align: right;
+}
+
+td.bold {
+  font-weight: bold;
+  border-bottom: double 4px #fff;
+}
+
+tr:nth-child(odd) {
+  background-color: #0f0f0f;
+}
+
+thead td:nth-child(even) {
+  background-color: #121212;
+}
+
+thead td:nth-child(odd) {
+  background-color: #080808;
+}
+
+tbody tr:nth-child(even) td:nth-child(even) {
+  background-color: #0a0a0a;
+}
+
+tbody tr:nth-child(odd) td:nth-child(even) {
+  background-color: #1a1a1a;
+}
+
+tr:nth-child(even) {
+  background-color: #060606;
+}
+
+tr:nth-child(even) th {
+  background-color: #a3a3a3;
+}
+
+.text-only {
+  border: 1px solid #666;
+  background-color: #333;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-family: UnifrakturCook, Palatino, Georgia, Garamond, serif;
+  font-size: 20px;
+  color: #aaa;
+  white-space: nowrap;
+}
+
+.unobtrusive * {
+  color: #666;
+  font-family: Palatino, Georgia, Garamond, serif;
+}
+
+
+h1.login:before {
+  content: 'Pott Metal ';
+}
+
+.bottom-nav {
+  background: #aaa;
+  height: 40px;
+  line-height: 40px;
+}

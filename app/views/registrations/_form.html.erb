@@ -1,0 +1,46 @@
+<div class="small-container">
+  <%= form_for(@user) do |f| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2>Registrierung fehlgeschlagen:</h2>
+
+        <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :login, 'Benutzername' %><br />
+      <%= f.text_field :login %>
+    </div>
+    <div class="field">
+      <%= f.label :password, 'Kennwort' %><br />
+      <%= f.text_field :password %>
+    </div>
+    <div class="field">
+      <%= f.label :forename, 'Vorname' %><br />
+      <%= f.text_field :forename %>
+    </div>
+    <div class="field">
+      <%= f.label :surname, 'Nachname' %><br />
+      <%= f.text_field :surname %>
+    </div>
+    <div class="field">
+      <%= f.label :email, 'E-Mailadresse' %><br />
+      <%= f.text_field :email %>
+    </div>
+    <div class="field">
+      <%= f.check_box :terms_accepted %>
+      <%= f.label :terms_accepted, 'Ich las und verstand das Kleingedruckte.' %>
+    </div>
+    <hr />
+    <div class="actions">
+      <button type="submit" class="text-only">
+        Benutzerkonto anlegen
+      </button>
+    </div>
+  <% end %>
+</div>
