@@ -13,7 +13,9 @@ class Ability
           project.owner_id == user.id
         end
       end
-      can :manage, user
+      can :manage, BankAccount do |account|
+        account.owner == user
+      end
 
       if user.login == 'wvk'
         can :manage, Invitation

@@ -8,7 +8,7 @@ class Project < ActiveRecord::Base
   validates_presence_of :name
 
 #   scope :having_as_bank, lambda {|user|
-#     joins(:memberships).where('memberships.user_id' => user, 'memberships.is_bank' => true)
+#     joins(:memberships).where('memberships.user_id' => user.id, 'memberships.is_bank' => true)
 #   }
 
   accepts_nested_attributes_for :memberships,
@@ -38,7 +38,12 @@ class Project < ActiveRecord::Base
   end
 
   def bank_id=(user_id)
-    self.memberships.where(:user_id => user_id).first.update_attribute(:is_bank, true)
+    self.memberships.where(:is_bank => true).each do |membership|
+      membership.update_attribute :is_bank, false
+    end
+    unless user_id.blank?
+      self.memberships.where(:user_id => user_id).first.update_attribute(:is_bank, true)
+    end
   end
 
   def bank_id

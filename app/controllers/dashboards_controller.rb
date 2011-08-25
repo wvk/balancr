@@ -10,4 +10,10 @@ class DashboardsController < ApplicationController
   def perform_basic_auth
     authorize! :access, :dashboard
   end
+
+  def access_denied
+    flash[:error] = 'You need to log in first.'
+    redirect_to login_path
+  end
+
 end

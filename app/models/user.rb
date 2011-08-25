@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   has_many :issued_payments,
       :class_name  => 'Payment',
       :foreign_key => :debitor_user_id
+  has_one :bank_account,
+      :foreign_key => 'owner_id'
 
   attr_accessor :password, :terms_accepted
 
@@ -59,15 +61,19 @@ class User < ActiveRecord::Base
     money_from_projects + self.amount_payed_to(user) - self.amount_received_from(user)
   end
 
-  def payment_instruction_for(user)
+  def payment_instruction_for(user, silent = false)
     balance = balance_to user
     if balance < 0
       %q(You owe %s %0.2f€) % [user.full_name, -balance]
     elsif balance > 0
       %q(You get %0.2f€ from %s) % [balance, user.full_name]
-    else
+    elsif not silent
       %q(You're all good with %s) % user.full_name
     end
+  end
+
+  def payment_instructions_for(users, silent = false)
+    users.map {|u| self.payment_instruction_for u, silent }.compact
   end
 
   def amount_payed_to(user)

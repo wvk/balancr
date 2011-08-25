@@ -10,7 +10,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110812162007) do
+ActiveRecord::Schema.define(:version => 20110825151457) do
+
+  create_table "bank_accounts", :force => true do |t|
+    t.integer  "owner_id"
+    t.string   "bank_name"
+    t.string   "owner_name"
+    t.string   "account_no"
+    t.string   "blz"
+    t.string   "iban"
+    t.string   "bic"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "dashboards", :force => true do |t|
     t.datetime "created_at"

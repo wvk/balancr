@@ -3,6 +3,13 @@
 <p>Welcome, <%= link_to @current_user.login, @current_user %></p>
 
 <h3>Users whom you owe money</h3>
+<ul>
+  <% @current_user.payment_instructions_for(@users, true).each do |instruction| %>
+    <li><%= instruction %></li>
+  <% end %>
+</ul>
+
+<h3>Your friends</h3>
 <% if @users.any? %>
   <table>
     <thead>
@@ -10,7 +17,9 @@
         <th>User</th>
         <th>you pay</th>
         <th>you get</th>
-        <th>new payment</th>
+        <% if can? :receive, Payment %>
+          <th>new payment</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -27,25 +36,21 @@
             <td class="money"><%=m(-balance) %></td>
             <td class="money"> -- </td>
           <% end %>
-          <td>
-            <%= form_for Payment.new do |f| %>
-              <%= hidden_referrer_input_tag %>
-              <%= f.hidden_field :creditor_user_id, :value => @current_user.id %>
-              <%= f.hidden_field :debitor_user_id,  :value => user.id %>
-              <%= f.text_field :amount, :size => 6 %>
-              <%= f.submit 'receive payment from user' %>
-            <% end %>
-          </td>
+          <% if can? :receive, Payment %>
+            <td>
+              <%= form_for Payment.new do |f| %>
+                <%= hidden_referrer_input_tag %>
+                <%= f.hidden_field :creditor_user_id, :value => @current_user.id %>
+                <%= f.hidden_field :debitor_user_id,  :value => user.id %>
+                <%= f.text_field :amount, :size => 6 %>
+                <%= f.submit 'receive payment from user' %>
+              <% end %>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
   </table>
-  <p>in Words:</p>
-  <ul>
-    <% @users.each do |user| %>
-      <li><%= @current_user.payment_instruction_for user %></li>
-    <% end %>
-  </ul>
 <% else %>
   <p>None</p>
 <% end %>

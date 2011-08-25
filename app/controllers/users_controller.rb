@@ -102,14 +102,24 @@ class UsersController < ApplicationController
   end
 
   def balance
-    @users = User.all
-    csv = FasterCSV.generate do |csv|
-      csv << ['User'] + @users.map(&:full_name)
-      @users.each do |user|
-        csv << [user.full_name] + @users.map {|balance_user| user.balance_to balance_user }
+    @users = User.order(:forename, :surname)
+    respond_to do |format|
+      format.txt do
+        text = @users.map do |user|
+          "#{user.full_name}:\n" + user.friends.map{|b_user| user.payment_instruction_for(b_user, true) }.compact.join("\n")
+        end
+        render :text => text.join("\n\n")
+      end
+      format.csv do
+        csv = FasterCSV.generate do |csv|
+          csv << ['User'] + @users.map(&:full_name)
+          @users.each do |user|
+            csv << [user.full_name] + @users.map {|balance_user| user.balance_to balance_user }
+          end
+        end
+        render :text => csv
       end
     end
-    render :text => csv
   end
 
   protected

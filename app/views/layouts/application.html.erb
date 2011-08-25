@@ -30,6 +30,12 @@
           <%= link_to 'Payments', payments_path, :class => 'bottom-link' %>
         <% end %>
 
+        <% if can? :edit, current_user.try(:bank_account) %>
+          <%= link_to 'Bank Account', edit_bank_account_path(current_user.bank_account), :class => 'bottom-link' %>
+        <% elsif can? :create, BankAccount %>
+          <%= link_to 'Create Bank Account', new_bank_account_path, :class => 'bottom-link' %>
+        <% end %>
+
         <%= link_to 'log out', logout_path, :class => 'bottom-link' %>
       </p>
     </div>

@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Owner:</b>
+  <%= @bank_account.owner_id %>
+</p>
+
+<p>
+  <b>Bank name:</b>
+  <%= @bank_account.bank_name %>
+</p>
+
+<p>
+  <b>Owner name:</b>
+  <%= @bank_account.owner_name %>
+</p>
+
+<p>
+  <b>Account no:</b>
+  <%= @bank_account.account_no %>
+</p>
+
+<p>
+  <b>Blz:</b>
+  <%= @bank_account.blz %>
+</p>
+
+<p>
+  <b>Iban:</b>
+  <%= @bank_account.iban %>
+</p>
+
+<p>
+  <b>Bic:</b>
+  <%= @bank_account.bic %>
+</p>
+
+
+<%= link_to 'Edit', edit_bank_account_path %> |
+<%= link_to 'Back', bank_account_path %>

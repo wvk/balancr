@@ -16,7 +16,9 @@ class Payment < ActiveRecord::Base
   protected
 
   def creditor_and_debitor_must_not_be_same
-    errors.add :debitor_user_id, 'must not be the same user as the creditor user'
+    if debitor_user.id == creditor_user.id
+      errors.add :debitor_user_id, 'must not be the same user as the creditor user'
+    end
   end
 
 end

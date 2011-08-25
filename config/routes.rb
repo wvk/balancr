@@ -1,4 +1,6 @@
 Balancr::Application.routes.draw do
+  resource :bank_account
+
   resources :invitations
 
   resource :dashboard
