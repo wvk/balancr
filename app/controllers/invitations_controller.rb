@@ -1,4 +1,8 @@
 class InvitationsController < ApplicationController
+
+  before_filter :load_object_selections,
+      :only => [:new, :edit]
+
   # GET /invitations
   # GET /invitations.xml
   def index
@@ -13,7 +17,12 @@ class InvitationsController < ApplicationController
   # GET /invitations/1
   # GET /invitations/1.xml
   def show
-    @invitation = Invitation.find(params[:id])
+    invitation = Invitation.find(params[:id])
+    if [invitation.invitee_id, invitation.inviter_id] == current_user.id
+      @invitation = invitation
+    else
+      access_denied and return
+    end
 
     respond_to do |format|
       format.html # show.html.erb
@@ -40,14 +49,14 @@ class InvitationsController < ApplicationController
   # POST /invitations
   # POST /invitations.xml
   def create
-    @invitation = Invitation.new(params[:invitation])
+    @invitation = Invitation.new(params[:invitation].merge :inviter => current_user)
 
     respond_to do |format|
       if @invitation.save
         format.html { redirect_to(@invitation, :notice => 'Invitation was successfully created.') }
         format.xml  { render :xml => @invitation, :status => :created, :location => @invitation }
       else
-        format.html { render :action => "new" }
+        format.html { render :action => 'new' }
         format.xml  { render :xml => @invitation.errors, :status => :unprocessable_entity }
       end
     end
@@ -56,14 +65,14 @@ class InvitationsController < ApplicationController
   # PUT /invitations/1
   # PUT /invitations/1.xml
   def update
-    @invitation = Invitation.find(params[:id])
+    @invitation = current_user.issued_invitations.find(params[:id])
 
     respond_to do |format|
       if @invitation.update_attributes(params[:invitation])
         format.html { redirect_to(@invitation, :notice => 'Invitation was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { render :action => 'edit' }
         format.xml  { render :xml => @invitation.errors, :status => :unprocessable_entity }
       end
     end
@@ -89,6 +98,14 @@ class InvitationsController < ApplicationController
 
   def access_denied
     flash[:error] = 'You do not have sufficient access rights for invitations'
-    redirect_to dashboard_path
+    respond_to do |format|
+      format.html { redirect_to dashboard_path }
+      format.any  { head :authorization_failed }
+    end
+  end
+
+  def load_object_selections
+    @friends    = can?(:invite, :anyone) ? User.all : current_user.friends
+    @projects   = current_user.projects
   end
 end

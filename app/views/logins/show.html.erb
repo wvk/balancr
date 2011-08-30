@@ -1,6 +1,6 @@
-<h2 class="login">Login</h2>
-
 <div class="small-container">
+  <h2 class="login">Login</h2>
+
   <%= form_for @user, :as => :login, :url => login_path  do |f| %>
     <% if @user.errors.any? %>
       <div id="error_explanation">
@@ -15,12 +15,12 @@
     <% end %>
 
     <div class="field">
-      <%= f.label :login, 'Benutzername' %><br />
+      <%= f.label :login, 'User name' %><br />
       <%= f.text_field :login %>
     </div>
 
     <div class="field">
-      <%= f.label :password, 'Kennwort' %><br />
+      <%= f.label :password, 'Password' %><br />
       <%= f.password_field :password %>
     </div>
 

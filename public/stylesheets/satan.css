@@ -127,7 +127,7 @@ tr:nth-child(even) th {
 }
 
 
-h1.login:before {
+h2.login:before {
   content: 'Pott Metal ';
 }
 

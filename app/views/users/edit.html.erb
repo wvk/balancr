@@ -4,7 +4,5 @@
   <%= render 'form' %>
 </div>
 
-<p class="bottom-nav">
-  <%= link_to 'Show', @user, :class => 'bottom-link' %>
-  <%= link_to 'Back', users_path, :class => 'bottom-link' %>
-</p>
+<% bottom_nav_link 'Show', user_path(@user) %>
+<% bottom_nav_link 'Back', users_path %>

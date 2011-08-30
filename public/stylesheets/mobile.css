@@ -1,0 +1,99 @@
+/* @font-face {
+  font-family: 'UnifrakturCook';
+  font-style: normal;
+  font-weight: bold;
+  src: local('UnifrakturCook'), url('unifrakturcook-bold.ttf') format('truetype');
+} */
+
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: UnifrakturCook, Palatino, Georgia, Garamond, serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  display: block;
+  height: 60px;
+  background: #111;
+  margin: 0;
+  width: 232px;
+  margin: auto;
+}
+
+footer {
+  display: block;
+  height: 60px;
+  background: #111;
+  margin: 0;
+  width: 232px;
+  margin: auto;
+}
+
+h1 {
+  line-height: 60px;
+  font-size: 48px;
+  text-align: center;
+}
+
+hr {
+  height: 10px;
+  border: none;
+  background-color: transparent;
+}
+
+#main-container {
+  width: 232px;
+  margin: auto;
+}
+
+.actions {
+  text-align: right;
+}
+
+.friend {
+  margin: 10px 5px;
+  width: 100%;
+  border: 1px solid #666;
+  background-color: #222;
+  border-radius: 10px;
+}
+
+.friend .name {
+  font-size: 112%;
+  font-weight: bold;
+  color: #111;
+  background: #ccc;
+  padding: 3px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.friend .name a {
+  color: #000;
+}
+.friend .money {
+  margin: 5px;
+}
+
+.bottom-nav {
+
+}
+
+a.bottom-link {
+  display: block;
+  text-align: center;
+  background: #eee;
+  padding: 3px;
+  margin: 5px;
+  border-radius: 10px;
+  color: #000
+}
+
+.money {
+  font-family: monospace;
+  text-align: right;
+}
+

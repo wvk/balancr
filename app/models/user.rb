@@ -9,6 +9,12 @@ class User < ActiveRecord::Base
   has_many :issued_payments,
       :class_name  => 'Payment',
       :foreign_key => :debitor_user_id
+  has_many :received_invitations,
+      :class_name  => 'Invitation',
+      :foreign_key => :invitee_id
+  has_many :issued_invitations,
+      :class_name  => 'Invitation',
+      :foreign_key => :inviter_id
   has_one :bank_account,
       :foreign_key => 'owner_id'
 

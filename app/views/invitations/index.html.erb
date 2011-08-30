@@ -1,21 +1,18 @@
-<h1>Listing invitations</h1>
+<h2>Listing invitations</h2>
 
 <table>
   <tr>
     <th>Project</th>
-    <th>Invitee</th>
     <th>Inviter</th>
+    <th>Invitee</th>
     <th>Message</th>
-    <th></th>
-    <th></th>
-    <th></th>
   </tr>
 
 <% @invitations.each do |invitation| %>
   <tr>
-    <td><%= invitation.project_id %></td>
-    <td><%= invitation.invitee_id %></td>
-    <td><%= invitation.inviter_id %></td>
+    <td><%= link_to invitation.project_name, invitation.project %></td>
+    <td><%= link_to invitation.inviter_full_name, invitation.inviter %></td>
+    <td><%= link_to invitation.invitee_full_name, invitation.invitee %></td>
     <td><%= invitation.message %></td>
     <td><%= link_to 'Show', invitation %></td>
     <td><%= link_to 'Edit', edit_invitation_path(invitation) %></td>

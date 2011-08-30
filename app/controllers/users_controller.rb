@@ -125,7 +125,11 @@ class UsersController < ApplicationController
   protected
 
   def perform_basic_auth
-    authorize! :access, User
+    if %w(edit update show password).include? params[:action]
+      authorize! :edit, current_user
+    else
+      authorize! :access, User
+    end
   end
 
 end

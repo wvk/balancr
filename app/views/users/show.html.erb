@@ -22,7 +22,7 @@
   <div class="actions">
     <%= link_to 'Edit', edit_user_path(@user), :class => 'text-only' %>
     <%= link_to 'Reset Password', user_password_path(@user), :class => 'text-only' %>
-    <%= link_to 'Back', users_path, :class => 'text-only' %>
+    <% bottom_nav_link 'Back', users_path if can? :access, User %>
   </div>
 </div>
 

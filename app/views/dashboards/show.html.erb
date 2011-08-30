@@ -2,12 +2,14 @@
 
 <p>Welcome, <%= link_to @current_user.login, @current_user %></p>
 
-<h3>Users whom you owe money</h3>
-<ul>
-  <% @current_user.payment_instructions_for(@users, true).each do |instruction| %>
-    <li><%= instruction %></li>
-  <% end %>
-</ul>
+<% if @users.any? %>
+  <h3>Users whom you owe money</h3>
+  <ul>
+    <% @current_user.payment_instructions_for(@users, true).each do |instruction| %>
+      <li><%= instruction %></li>
+    <% end %>
+  </ul>
+<% end %>
 
 <h3>Your friends</h3>
 <% if @users.any? %>

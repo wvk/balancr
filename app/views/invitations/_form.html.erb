@@ -13,11 +13,18 @@
 
   <%= f.hidden_field :inviter_id, :value => current_user.id %>
 
+  <% if can? :manage, @invitation %>
+    <div class="field">
+      <%= f.label :inviter_id, 'Inviter' %>
+      <%= f.collection_select :inviter_id, @friends, :id, :full_name, :include_blank => 'select inviter' %>
+    </div>
+  <% end %>
+
   <div class="field">
     <%= f.label :invitee_id, 'Invite user' %>
-    <%= f.collection_select :invitee_id, current_user.friends, :id, :full_name, :include_blank => 'select friend' %>
+    <%= f.collection_select :invitee_id, @friends, :id, :full_name, :include_blank => 'select friend' %>
     <%= f.label :project_id, 'to project' %>
-    <%= f.collection_select :project_id, current_user.projects, :id, :name, {:include_blank => 'select project'}, 'data-all-projects' => current_user.projects.to_json %>
+    <%= f.collection_select :project_id, @projects, :id, :name, {:include_blank => 'select project'}, 'data-all-projects' => current_user.projects.to_json %>
   </div>
 
   <div class="field">

@@ -15,4 +15,10 @@ module ApplicationHelper
       content_tag :p, flash[:notice], :id => 'notice'
     end
   end
+
+  def bottom_nav_link(name, url, options={})
+    content_for :bottom_nav do
+      link_to name, url, options.merge(:class => 'bottom-link')
+    end
+  end
 end
