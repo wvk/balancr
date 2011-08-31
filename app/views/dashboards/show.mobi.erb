@@ -29,7 +29,7 @@
             <%= hidden_referrer_input_tag %>
             <%= f.hidden_field :creditor_user_id %>
             <%= f.hidden_field :debitor_user_id %>
-            <%= f.text_field :amount, :size => 6 %>
+            <%= f.number_field :amount, :size => 6 %>
             <%= f.submit 'receive' %>
           <% end %>
         </div>

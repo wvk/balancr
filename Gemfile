@@ -15,4 +15,5 @@ gem 'fastercsv'
 
 group :development, :test do
   gem 'factory_girl'
+  gem 'ruby-debug'
 end

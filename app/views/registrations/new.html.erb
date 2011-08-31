@@ -1,16 +1,17 @@
-<h1>Registrierung</h1>
+<h2>Registrierung</h2>
 
-<h2>Das Kleingedruckte</h2>
+<h3>Das Kleingedruckte</h3>
 <ul class="unobtrusive">
   <li>Unwahre Angaben werden mit Verdammnis geahndet</li>
   <li>Wer sein hier eingegebenes Kennwort vergisst, ist selbst Schuld.</li>
   <li>Deine Seele gehört ab dem Absenden dieses Formulares unwiderruflich Satan.</li>
   <li>Solltest du keine Seele besitzen, gehört dein Leib stattdessen Satan.</li>
-  <li>Solltest du Satan sein, ...</li>
+  <li>Solltest du Satan sein: Herzlichen Glückwunsch.</li>
 </ul>
 
+<h3>Das Formular</h3>
 <%= render 'form' %>
 
 <hr />
 
-<%= link_to 'Zurück', login_path %>
+<% bottom_nav_link 'Zurück', login_path %>

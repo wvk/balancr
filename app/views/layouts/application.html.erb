@@ -2,9 +2,10 @@
 <html>
   <head>
     <title>Balancr</title>
-    <%= stylesheet_link_tag '_scaffold', 'satan' %>
+    <%= stylesheet_link_tag 'satan' %>
     <%= javascript_include_tag :defaults %>
     <%= csrf_meta_tag %>
+    <meta name="viewport" content="width=320" />
   </head>
 
   <body>
@@ -46,7 +47,9 @@
           <%= link_to 'Create Bank Account', new_bank_account_path, :class => 'bottom-link' %>
         <% end %>
 
-        <%= link_to 'log out', logout_path, :class => 'bottom-link' %>
+        <% if can? :access, :logout %>
+          <%= link_to 'log out', logout_path, :class => 'bottom-link log-out' %>
+        <% end %>
       </p>
     </div>
   </body>

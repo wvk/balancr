@@ -29,6 +29,7 @@ class Ability
         can :invite, Project
         can :manage, User
       end
+      can :access, :logout
     else
       can :access, :login
       can :access, :registration

@@ -46,7 +46,9 @@
           <%= link_to 'Create Bank Account', new_bank_account_path, :class => 'bottom-link' %>
         <% end %>
 
-        <%= link_to 'log out', logout_path, :class => 'bottom-link' %>
+        <% if can? :access, :logout %>
+          <%= link_to 'log out', logout_path, :class => 'bottom-link log-out' %>
+        <% end %>
       </p>
     </div>
   </body>

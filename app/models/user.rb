@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   has_one :bank_account,
       :foreign_key => 'owner_id'
 
-  attr_accessor :password, :terms_accepted
+  attr_accessor :password, :terms_accepted, :use_full_validation
 
   before_save :encrypt_password
 
@@ -38,6 +38,10 @@ class User < ActiveRecord::Base
   validates_presence_of :login
   validates_confirmation_of :password,
       :on => :update
+  validates_presence_of :forename, :surname, :email, :password,
+      :if => :use_full_validation
+  validates_acceptance_of :terms_accepted,
+      :if => :use_full_validation
 
   def self.[](login)
     self.find_or_create_by_login login
@@ -132,5 +136,10 @@ class User < ActiveRecord::Base
 
   def friends
     User.includes(:memberships).where(['memberships.project_id IN (?) AND users.id != ?', self.project_ids, self.id])
+  end
+
+  def with_full_validation
+    self.use_full_validation = true
+    self
   end
 end

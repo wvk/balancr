@@ -17,14 +17,14 @@ class RegistrationsController < ApplicationController
   # POST /registrations
   # POST /registrations.xml
   def create
-    @user = User.new(params[:user])
+    @user = User.new(params[:user]).with_full_validation
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to(@user, :notice => 'Du hast dich erfolgreich registriert und kannst dich nun einloggen') }
+        format.html { redirect_to(login_path, :notice => 'Du hast dich erfolgreich registriert und kannst dich nun einloggen') }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
       else
-        format.html { render :action => "new" }
+        format.html { render :action => 'new' }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
       end
     end

@@ -1,40 +1,33 @@
 <div class="small-container">
-  <%= form_for(@user) do |f| %>
+  <%= form_for(@user, :url => registration_path) do |f| %>
     <% if @user.errors.any? %>
-      <div id="error_explanation">
-        <h2>Registrierung fehlgeschlagen:</h2>
-
-        <ul>
-        <% @user.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
+      <h2>Registrierung fehlgeschlagen!</h2>
     <% end %>
 
     <div class="field">
-      <%= f.label :login, 'Benutzername' %><br />
+      <%= f.label :login, 'Benutzername', :required => true %> <%= @user.errors[:login] %><br />
       <%= f.text_field :login %>
     </div>
     <div class="field">
-      <%= f.label :password, 'Kennwort' %><br />
+      <%= f.label :password, 'Kennwort', :required => true %> <%= @user.errors[:password] %><br />
       <%= f.text_field :password %>
     </div>
     <div class="field">
-      <%= f.label :forename, 'Vorname' %><br />
+      <%= f.label :forename, 'Vorname', :required => true %> <%= @user.errors[:forename] %><br />
       <%= f.text_field :forename %>
     </div>
     <div class="field">
-      <%= f.label :surname, 'Nachname' %><br />
+      <%= f.label :surname, 'Nachname', :required => true %> <%= @user.errors[:surname] %><br />
       <%= f.text_field :surname %>
     </div>
     <div class="field">
-      <%= f.label :email, 'E-Mailadresse' %><br />
-      <%= f.text_field :email %>
+      <%= f.label :email, 'E-Mailadresse', :required => true %> <%= @user.errors[:email] %><br />
+      <%= f.email_field :email %>
     </div>
     <div class="field">
-      <%= f.check_box :terms_accepted %>
+      <%= f.check_box :terms_accepted, :required => true %>
       <%= f.label :terms_accepted, 'Ich las und verstand das Kleingedruckte.' %>
+      <%= @user.errors[:terms_accepted] %>
     </div>
     <hr />
     <div class="actions">

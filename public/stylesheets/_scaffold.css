@@ -69,13 +69,12 @@ div.field, div.actions {
 
 a.bottom-link {
   border: 1px solid #000;
-  padding: .8em;
   color: #000;
+  margin: 1px;
 }
 
 a.bottom-link:hover {
   border: 1px solid #000;
-  padding: .8em;
   color: #000;
   background: #aaa;
 }
