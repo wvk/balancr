@@ -3,14 +3,10 @@ class ApplicationController < ActionController::Base
 
   before_filter :perform_basic_auth
 
-  before_filter :store_mobile_preference
-
   rescue_from CanCan::AccessDenied,
       :with => :access_denied
 
   helper_method :current_user
-
-  layout :select_layout
 
   protected
 
@@ -49,32 +45,6 @@ class ApplicationController < ActionController::Base
   def authenticate_from_session
     unless session[:auth_user_id].blank?
       return User.where(:id => session[:auth_user_id]).first
-    end
-  end
-
-  def store_mobile_preference
-    if %w(html mobi).include? params[:format].to_s
-#       if session[:format].blank? or params[:format] != session[:format]
-      session[:format] = params[:format]
-#       end
-      request.format = session[:format].to_sym
-    end
-  end
-
-  def select_layout
-    case session[:format].to_s
-    when 'mobi'
-      'mobile_application'
-    when 'html'
-      'application'
-    end
-  end
-
-  def default_url_options
-    if %w(html mobi).include? params[:format].to_s and session[:format]
-      super.merge :format => session[:format]
-    else
-      super
     end
   end
 

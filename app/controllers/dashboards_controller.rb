@@ -6,7 +6,6 @@ class DashboardsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.mobi
     end
   end
 

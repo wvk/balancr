@@ -1,37 +1,49 @@
-<div class="small-container">
-  <%= form_for(@user, :url => registration_path) do |f| %>
+<div class="row">
+  <%= form_for @user, :url => registration_path, :html => {:class => 'form-horizontal'} do |f| %>
     <% if @user.errors.any? %>
       <h2>Registrierung fehlgeschlagen!</h2>
     <% end %>
 
-    <div class="field">
-      <%= f.label :login, 'Benutzername', :required => true %> <%= @user.errors[:login] %><br />
-      <%= f.text_field :login %>
+    <div class="control-group">
+      <%= f.label :login, 'Benutzername', :required => true, :class => 'control-label' %>
+      <%= f.text_field :login, :class => 'form-control' %>
+      <div class="help-block"><%= @user.errors[:login] %></div>
     </div>
-    <div class="field">
-      <%= f.label :password, 'Kennwort', :required => true %> <%= @user.errors[:password] %><br />
-      <%= f.text_field :password %>
+
+    <div class="control-group">
+      <%= f.label :password, 'Kennwort', :required => true, :class => 'control-label' %>
+      <%= f.text_field :password, :class => 'form-control' %>
+      <div class="help-block"><%= @user.errors[:password] %></div>
     </div>
-    <div class="field">
-      <%= f.label :forename, 'Vorname', :required => true %> <%= @user.errors[:forename] %><br />
-      <%= f.text_field :forename %>
+
+    <div class="control-group">
+      <%= f.label :forename, 'Vorname', :required => true, :class => 'control-label' %>
+      <%= f.text_field :forename, :class => 'form-control' %>
+      <div class="help-block"><%= @user.errors[:forename] %></div>
     </div>
-    <div class="field">
-      <%= f.label :surname, 'Nachname', :required => true %> <%= @user.errors[:surname] %><br />
-      <%= f.text_field :surname %>
+
+    <div class="control-group">
+      <%= f.label :surname, 'Nachname', :required => true, :class => 'control-label' %>
+      <%= f.text_field :surname, :class => 'form-control' %>
+      <div class="help-block"><%= @user.errors[:surname] %></div>
     </div>
-    <div class="field">
-      <%= f.label :email, 'E-Mailadresse', :required => true %> <%= @user.errors[:email] %><br />
-      <%= f.email_field :email %>
+
+    <div class="control-group">
+      <%= f.label :email, 'E-Mailadresse', :required => true, :class => 'control-label' %>
+      <%= f.email_field :email, :class => 'form-control' %>
+      <div class="help-block"><%= @user.errors[:email] %></div>
     </div>
-    <div class="field">
-      <%= f.check_box :terms_accepted, :required => true %>
+
+    <div class="control-group">
+      <%= f.check_box :terms_accepted, :required => true, :class => 'control-label' %>
       <%= f.label :terms_accepted, 'Ich las und verstand das Kleingedruckte.' %>
-      <%= @user.errors[:terms_accepted] %>
+      <div class="help-block"><%= @user.errors[:terms_accepted] %></div>
     </div>
+
     <hr />
+
     <div class="actions">
-      <button type="submit" class="text-only">
+      <button type="submit" class="btn btn-primary">
         Benutzerkonto anlegen
       </button>
     </div>

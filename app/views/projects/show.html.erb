@@ -1,31 +1,32 @@
-<h2><%= @project.name %></h2>
-
-<p>
-  <b>Description:</b>
-  <%= @project.description %>
-</p>
-
-<p>
-  <b>Date:</b>
-  <%= @project.date %>
-</p>
+<header class="page-header">
+  <div class="pull-right">
+    <span class="badge"><%= @project.date %></span>
+  </div>
+  <h2>
+    <%= @project.name %>
+    <small><%= @project.description %></small>
+  </h2>
+</header>
 
 <% if @project.users.any? %>
   <h3>Project Expenses and Balance</h3>
 
-  <table>
+  <table class="table table-condensed">
     <thead>
       <tr>
         <th>user</th>
         <% @project.memberships.each do |membership| %>
-          <td>
-            <%= link_to membership.user.full_name, membership.user %>
-            <%= form_for membership, :html => {:method => :delete} do |f| %>
+          <th>
+            <%= form_for membership, :html => {:method => :delete, :class => 'form-inline'} do |f| %>
+              <%= link_to membership.user.full_name, membership.user %>
               <%= hidden_referrer_input_tag %>
-              <%= f.submit 'x'%>
+              <button class="btn btn-link btn-xs" type="submit">
+                <i class="glyphicon glyphicon-remove text-danger"> </i>
+              </button>
             <% end %>
-          </td>
+          </th>
         <% end %>
+        <th>Sum</th>
       </tr>
     </thead>
     <tbody>
@@ -39,6 +40,7 @@
               <td> </td>
             <% end %>
           <% end %>
+          <td></td>
         </tr>
       <% end %>
       <tr>
@@ -48,6 +50,7 @@
             <%= link_to '+ new', new_expense_path(:user_id => user.id, :project_id => @project.id), :class => 'add' %>
           </td>
         <% end %>
+        <td></td>
       </tr>
     </tbody>
     <tfoot>
@@ -65,6 +68,7 @@
         <% @project.users.each do |user| %>
           <td class="money"><%=m user.balance_for @project %></td>
         <% end %>
+        <td></td>
       </tr>
     </tfoot>
   </table>

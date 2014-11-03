@@ -1,4 +1,4 @@
-<table>
+<table class="table table-striped table-condensed table-hover">
   <thead>
     <tr>
       <th>Name</th>
@@ -16,7 +16,7 @@
         <td><%= project.description %></td>
         <td><%= project.date %></td>
         <td>
-          <ul>
+          <ul class="list-unstyled">
             <% project.users.each do |user| %>
               <li><%= link_to user.login, user %></li>
             <% end %>

@@ -68,6 +68,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     redirectr (0.1.0)
+    sass (3.4.7)
     sprockets (2.2.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -90,4 +91,5 @@ DEPENDENCIES
   cancan
   rails (= 3.2.13)
   redirectr
+  sass
   sqlite3-ruby
