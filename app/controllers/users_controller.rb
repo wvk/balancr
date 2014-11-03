@@ -1,5 +1,3 @@
-require 'fastercsv'
-
 class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
@@ -111,7 +109,7 @@ class UsersController < ApplicationController
         render :text => text.join("\n\n")
       end
       format.csv do
-        csv = FasterCSV.generate do |csv|
+        csv = CSV.generate do |csv|
           csv << ['User'] + @users.map(&:full_name)
           @users.each do |user|
             csv << [user.full_name] + @users.map {|balance_user| user.balance_to balance_user }

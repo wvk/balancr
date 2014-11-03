@@ -22,23 +22,23 @@
         <%= yield :bottom_nav %>
 
         <% if can? :access, :dashboard %>
-          <%= link_to 'Dashboard', dashboard_path, :class => 'bottom-link' %>
+          <%= link_to 'Dashboard', dashboard_path, :class => 'bottom-link dashboard' %>
         <% end %>
 
         <% if can? :access, Project %>
-          <%= link_to 'Projects', projects_path, :class => 'bottom-link' %>
+          <%= link_to 'Projects', projects_path, :class => 'bottom-link projects' %>
         <% end %>
 
         <% if can? :access, User %>
-          <%= link_to 'Users', users_path, :class => 'bottom-link' %>
+          <%= link_to 'Users', users_path, :class => 'bottom-link users' %>
         <% end %>
 
         <% if can? :edit, current_user %>
-          <%= link_to 'Account Settings', user_path(current_user), :class => 'bottom-link' %>
+          <%= link_to 'Account Settings', user_path(current_user), :class => 'bottom-link account' %>
         <% end %>
 
         <% if can? :access, Payment %>
-          <%= link_to 'Payments', payments_path, :class => 'bottom-link' %>
+          <%= link_to 'Payments', payments_path, :class => 'bottom-link payments' %>
         <% end %>
 
         <% if can? :edit, current_user.try(:bank_account) %>
@@ -50,6 +50,8 @@
         <% if can? :access, :logout %>
           <%= link_to 'log out', logout_path, :class => 'bottom-link log-out' %>
         <% end %>
+
+        <%= link_to 'desktop version', url_for(:format => :html), :class => 'bottom-link desktop' %>
       </p>
     </div>
   </body>

@@ -18,7 +18,12 @@ module ApplicationHelper
 
   def bottom_nav_link(name, url, options={})
     content_for :bottom_nav do
-      link_to name, url, options.merge(:class => 'bottom-link')
+      if options[:class]
+        options[:class] = ['bottom-link', options[:class]].flatten
+      else
+        options.merge!(:class => 'bottom-link')
+      end
+      link_to name, url, options
     end
   end
 end

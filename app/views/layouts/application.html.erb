@@ -10,7 +10,7 @@
 
   <body>
     <header>
-      <h1>Balancr</h1>
+    <h1>Balancr</h1>
     </header>
 
     <div id="main-container">
@@ -22,19 +22,19 @@
         <%= yield :bottom_nav %>
 
         <% if can? :access, :dashboard %>
-          <%= link_to 'Dashboard', dashboard_path, :class => 'bottom-link' %>
+          <%= link_to 'Dashboard', dashboard_path, :class => 'bottom-link dashboard' %>
         <% end %>
 
         <% if can? :access, Project %>
-          <%= link_to 'Projects', projects_path, :class => 'bottom-link' %>
+          <%= link_to 'Projects', projects_path, :class => 'bottom-link projects' %>
         <% end %>
 
         <% if can? :access, User %>
-          <%= link_to 'Users', users_path, :class => 'bottom-link' %>
+          <%= link_to 'Users', users_path, :class => 'bottom-link users' %>
         <% end %>
 
         <% if can? :edit, current_user %>
-          <%= link_to 'Account Settings', user_path(current_user), :class => 'bottom-link' %>
+          <%= link_to 'Account Settings', user_path(current_user), :class => 'bottom-link edit' %>
         <% end %>
 
         <% if can? :access, Payment %>
@@ -50,6 +50,8 @@
         <% if can? :access, :logout %>
           <%= link_to 'log out', logout_path, :class => 'bottom-link log-out' %>
         <% end %>
+        
+        <%= link_to 'mobile version', url_for(:format => :mobi), :class => 'bottom-link mobile' %>
       </p>
     </div>
   </body>

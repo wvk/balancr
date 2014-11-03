@@ -1,5 +1,5 @@
 body {
-  background-color: #000;
+  background-color: #333;
   color: #fff;
   font-family: UnifrakturCook, Palatino, Georgia, Garamond, serif;
   font-size: 16px;
@@ -38,8 +38,10 @@ hr {
 }
 
 #main-container {
-  width: 320px;
+  width: 300px;
   margin: auto;
+  background-color: #000;
+  padding: 10px;
 }
 
 .actions {
@@ -47,7 +49,7 @@ hr {
 }
 
 .friend {
-  margin: 10px 5px;
+  margin: 10px 0;
   width: 100%;
   border: 1px solid #666;
   background-color: #222;
@@ -55,11 +57,11 @@ hr {
 }
 
 .friend .name {
-  font-size: 112%;
+  font-size: 18px;
   font-weight: bold;
   color: #111;
   background: #ccc;
-  padding: 3px;
+  padding: 10px 3px;
   border-radius: 10px;
   text-align: center;
 }
@@ -73,9 +75,10 @@ hr {
 }
 
 .bottom-nav {
-  width: 320px;
+  width: 100%;
 }
 
+button.text-only,
 a.bottom-link {
   display: block;
   text-align: center;
@@ -85,6 +88,14 @@ a.bottom-link {
   border-radius: 10px;
   color: #000;
   width: 80%;
+  font-size: 18px;
+  font-family: sans-serif;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+}
+
+a.bottom-link:active {
+  background-color: #fff;
 }
 
 a.log-out {
@@ -105,6 +116,46 @@ a.log-out {
   padding: 2%;
 }
 
+.total {
+  border-bottom: double 3px
+}
+
 .small-container input {
-  width: 100%;
+  width: 90%;
+}
+
+.bottom-link.new {
+  background-image: url('images/add.png');
+}
+.bottom-link.mobile {
+  background-image: url('images/mobile.png');
+}
+.bottom-link.desktop {
+  background-image: url('images/desktop.png');
+}
+.bottom-link.dashboard {
+  background-image: url('images/dashboard.png');
+}
+.bottom-link.log-out {
+  background-image: url('images/log-out.png');
+}
+.bottom-link.account {
+  background-image: url('images/account.png');
+}
+.bottom-link.payments {
+  background-image: url('images/payments.png');
+}
+.bottom-link.users {
+  background-image: url('images/users.png');
+}
+.bottom-link.edit {
+  background-image: url('images/edit.png');
+}
+.bottom-link.back {
+  background-image: url('images/back.png');
+}
+
+input[type=submit]{
+  padding: 10px;
+  font-size: 15px;
 }
