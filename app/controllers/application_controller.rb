@@ -30,9 +30,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    unless @current_user == false
-      @current_user ||= authenticate_from_basic_auth || authenticate_from_session || false
-    end
+    @current_user ||= authenticate_from_basic_auth || authenticate_from_session || User.guest
   end
 
   def authenticate_from_basic_auth

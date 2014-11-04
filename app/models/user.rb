@@ -47,6 +47,16 @@ class User < ActiveRecord::Base
     self.find_or_create_by_login login
   end
 
+  def self.guest
+    self.readonly.new(:login => 'guest', :surname => 'Surname', :forename => 'Guest').tap do |s|
+      s.id = 0
+    end
+  end
+
+  def guest?
+    self.id == 0
+  end
+
   def full_name
     "#{self.forename} #{self.surname}"
   end
@@ -141,5 +151,9 @@ class User < ActiveRecord::Base
   def with_full_validation
     self.use_full_validation = true
     self
+  end
+
+  def to_s
+    self.full_name
   end
 end

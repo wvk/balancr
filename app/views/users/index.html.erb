@@ -1,24 +1,29 @@
 <h2>Registered Users</h2>
 
-<table>
-  <tr>
-    <th>Login</th>
-    <th>Forename</th>
-    <th>Surname</th>
-    <th>Email</th>
-  </tr>
-
-  <% @users.each do |user| %>
+<table class="table table-condensed table-striped table-hover">
+  <thead>
     <tr>
-      <td><%= link_to user.login, user %></td>
-      <td><%= user.forename %></td>
-      <td><%= user.surname %></td>
-      <td><%= user.email %></td>
-      <td><%= link_to 'Edit', edit_user_path(user) %></td>
-      <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
+      <th>Login</th>
+      <th>Forename</th>
+      <th>Surname</th>
+      <th>Email</th>
+      <th>Projects</th>
     </tr>
-  <% end %>
+  </thead>
 
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.login, user %></td>
+        <td><%= user.forename %></td>
+        <td><%= user.surname %></td>
+        <td><%= user.email %></td>
+        <td><%= user.memberships.count %></td>
+        <td><%= link_to 'Edit', edit_user_path(user, :referrer => current_path) %></td>
+        <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete if can? :delete, user %></td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
 <br />

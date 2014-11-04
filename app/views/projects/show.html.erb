@@ -2,6 +2,7 @@
   <div class="pull-right">
     <span class="badge"><%= @project.date %></span>
   </div>
+
   <h2>
     <%= @project.name %>
     <small><%= @project.description %></small>
@@ -74,14 +75,14 @@
   </table>
 <% end %>
 
-<%= form_for(@project) do |f| %>
+<%= form_for @project, :html => {:class => 'form-inline'} do |f| %>
+  <%= link_to 'Back', back_or_default, :class => 'btn btn-link' %>
+  <%= link_to 'Edit', edit_project_path(@project, :referrer => current_path), :class => 'btn btn-link' %>
+
   <%= f.fields_for :memberships, Membership.new do |uf| %>
-    <%= uf.collection_select :user_id, User.except(@project.user_ids).all, :id, :login %>
+    <%= uf.collection_select :user_id, User.except(@project.user_ids).all, :id, :login, {}, :class => 'form-control' %>
   <% end %>
 
-  <%= f.submit 'add user' %>
+  <%= f.submit 'add user', :class => 'btn btn-default' %>
 <% end %>
-
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
 

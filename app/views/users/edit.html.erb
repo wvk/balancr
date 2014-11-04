@@ -1,8 +1,6 @@
 <h2>Edit User</h2>
 
-<div class="small-container">
-  <%= render 'form' %>
-</div>
+<%= render 'form' %>
 
-<% bottom_nav_link 'Show', user_path(@user) %>
-<% bottom_nav_link 'Back', users_path %>
+<% bottom_nav_link 'Show', user_path(@user), :class => 'btn btn-link' %>
+<% bottom_nav_link 'Back', back_or_default, :class => 'btn btn-link' %>

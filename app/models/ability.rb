@@ -2,14 +2,17 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if user
+    if user and not user.guest?
       can :access, :dashboard
+
       can :view, Project do |project|
         user.member_of? project
       end
+
       can :invite, Project do |project|
         project.owner_id == user.id
       end
+
       can :assign, Project do |project|
         project.owner_id == user.id
       end
@@ -29,10 +32,16 @@ class Ability
         can :invite, Project
         can :manage, User
       end
+
+      cannot :delete, User do |u|
+        u.memberships.any?
+      end
+
       can :access, :logout
     else
       can :access, :login
       can :access, :registration
     end
   end
+
 end

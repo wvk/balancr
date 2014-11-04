@@ -1,28 +1,32 @@
 <h2>Listing expenses</h2>
 
-<table>
-  <tr>
-    <th>Project</th>
-    <th>User</th>
-    <th>Amount</th>
-    <th>Date</th>
-    <th>Name</th>
-  </tr>
+<table class="table table-striped table-condensed table-hover">
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>User</th>
+      <th>Amount</th>
+      <th>Date</th>
+      <th>Name</th>
+    </tr>
+  </thead>
 
-<% @expenses.each do |expense| %>
-  <tr>
-    <td><%= link_to expense.project.name, expense.project %></td>
-    <td><%= link_to expense.user.full_name, expense.user %></td>
-    <td class="money"><%= sprintf('%.2f&euro;',expense.amount).html_safe %></td>
-    <td><%= expense.date %></td>
-    <td><%= expense.name %></td>
-    <td><%= link_to 'Show', expense %></td>
-    <td><%= link_to 'Edit', edit_expense_path(expense) %></td>
-    <td><%= link_to 'Destroy', expense, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
+  <tbody>
+    <% @expenses.each do |expense| %>
+      <tr>
+        <td><%= link_to expense.project.name, expense.project %></td>
+        <td><%= link_to expense.user.full_name, expense.user %></td>
+        <td class="money"><%= sprintf('%.2f&euro;',expense.amount).html_safe %></td>
+        <td><%= expense.date %></td>
+        <td><%= expense.name %></td>
+        <td><%= link_to 'Show', expense %></td>
+        <td><%= link_to 'Edit', edit_expense_path(expense) %></td>
+        <td><%= link_to 'Destroy', expense, :confirm => 'Are you sure?', :method => :delete %></td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
 <br />
 
-<%= link_to 'New Expense', new_expense_path %>
+<%= link_to 'New Expense', new_expense_path, :class => 'btn btn-link' %>

@@ -96,6 +96,10 @@ class ProjectsController < ApplicationController
 
   protected
 
+  def default_path
+    projects_path
+  end
+
   def perform_basic_auth
     authorize! :access, Project
   end

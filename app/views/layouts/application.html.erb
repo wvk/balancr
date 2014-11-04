@@ -46,6 +46,14 @@
             <% if can? :access, :logout %>
               <li><%= link_to 'log out', logout_path %></li>
             <% end %>
+
+            <% if can? :access, :login %>
+              <li><%= link_to 'log in', login_path %></li>
+            <% end %>
+
+            <% if can? :access, :registration %>
+              <li><%= link_to 'register', new_registration_path %></li>
+            <% end %>
           </ul>
 
           <p class="navbar-text pull-right">Signed in as <%= current_user.login %></p>

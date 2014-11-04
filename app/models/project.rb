@@ -50,4 +50,8 @@ class Project < ActiveRecord::Base
     self.memberships.where(:is_bank => true).first.try :user_id
   end
 
+  def to_s
+    self.name
+  end
+
 end

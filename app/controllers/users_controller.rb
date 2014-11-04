@@ -84,7 +84,7 @@ class UsersController < ApplicationController
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to(users_url) }
+      format.html { back_or_default }
       format.xml  { head :ok }
     end
   end
@@ -121,6 +121,10 @@ class UsersController < ApplicationController
   end
 
   protected
+
+  def default_path
+    users_path
+  end
 
   def perform_basic_auth
     if %w(edit update show password).include? params[:action]
