@@ -14,7 +14,7 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= link_to user.login, user %></td>
+        <td><%= link_to %Q(<img src="http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(user.email)}?s=24"> #{user.login}).html_safe, user %></td>
         <td><%= user.forename %></td>
         <td><%= user.surname %></td>
         <td><%= user.email %></td>
