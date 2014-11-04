@@ -1,28 +1,32 @@
-<h2>Payments</h2>
+<header class="page-header">
+  <h2>Payments</h2>
+</header>
 
-<table>
-  <tr>
-    <th>Debitor</th>
-    <th>Creditor</th>
-    <th>Amount</th>
-    <th>Date</th>
-    <th>Remarks</th>
-  </tr>
-
-<% @payments.each do |payment| %>
-  <tr>
-    <td><%= payment.debitor_user.login %></td>
-    <td><%= payment.creditor_user.login %></td>
-    <td class="money"><%= m payment.amount %></td>
-    <td><%= payment.date %></td>
-    <td><%= payment.name %></td>
-    <td><%= link_to 'Show', payment if can? :show, payment %></td>
-    <td><%= link_to 'Edit', edit_payment_path(payment) if can? :edit, payment %></td>
-    <td><%= link_to 'Destroy', payment, :confirm => 'Are you sure?', :method => :delete if can? :destroy, payment %></td>
-  </tr>
-<% end %>
+<table class="table table-striped table-condensed table-hover">
+  <thead>
+    <tr>
+      <th>Debitor</th>
+      <th>Creditor</th>
+      <th>Amount</th>
+      <th>Date</th>
+      <th>Remarks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @payments.each do |payment| %>
+      <tr>
+        <td><%= payment.debitor_user.login %></td>
+        <td><%= payment.creditor_user.login %></td>
+        <td class="money"><%= m payment.amount %></td>
+        <td><%= payment.date %></td>
+        <td><%= payment.name %></td>
+        <td><%= link_to 'Show', payment if can? :show, payment %></td>
+        <td><%= link_to 'Edit', edit_payment_path(payment) if can? :edit, payment %></td>
+        <td><%= link_to 'Destroy', payment, :confirm => 'Are you sure?', :method => :delete if can? :destroy, payment %></td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
-<br />
 
 <%= link_to 'New Payment', new_payment_path %>
