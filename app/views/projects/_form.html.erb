@@ -1,33 +1,38 @@
-<%= form_for(@project) do |f| %>
+<%= form_for @project do |f| %>
   <% if @project.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+      <h2><%= pluralize(@project.errors.count, 'error') %> prohibited this project from being saved:</h2>
 
       <ul>
-      <% @project.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @project.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <%= f.text_field :name, :class => 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description, :size => '75x5' %>
+
+  <div class="form-group">
+    <%= f.label :description, :class => 'control-label' %>
+    <%= f.text_area :description, :size => '75x5', :class => 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :date %><br />
-    <%= f.date_select :date %>
+
+  <div class="form-group">
+    <%= f.label :date, :class => 'control-label' %>
+    <%= f.date_select :date, :class => 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :bank_id %><br />
-    <%= f.collection_select :bank_id, @project.users, :id, :full_name, :include_blank => 'no bank' %>
+
+  <div class="form-group">
+    <%= f.label :bank_id, :class => 'control-label' %>
+    <%= f.collection_select :bank_id, @project.users, :id, :full_name, :include_blank => 'no bank', :class => 'form-control' %>
   </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= link_to 'Back', back_or_default, :class => 'btn btn-link' %>
+    <%= f.submit :class => 'btn btn-primary' %>
   </div>
 <% end %>

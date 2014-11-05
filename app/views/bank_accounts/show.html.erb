@@ -35,6 +35,4 @@
   <%= @bank_account.bic %>
 </p>
 
-
-<%= link_to 'Edit', edit_bank_account_path %> |
-<%= link_to 'Back', bank_account_path %>
+<%= link_to 'Edit', edit_bank_account_path(:referrer => current_page) %>

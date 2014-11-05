@@ -12,7 +12,7 @@
 <% if @project.users.any? %>
   <h3>Project Expenses and Balance</h3>
 
-  <table class="table table-condensed">
+  <table class="table table-condensed align-right">
     <thead>
       <tr>
         <th>user</th>
@@ -30,6 +30,7 @@
         <th>Sum</th>
       </tr>
     </thead>
+
     <tbody>
       <% @project.expenses.each do |expense| %>
         <tr>
@@ -54,6 +55,7 @@
         <td></td>
       </tr>
     </tbody>
+
     <tfoot>
       <tr>
         <th>amount spent</th>
@@ -67,7 +69,7 @@
       <tr>
         <th>balance</th>
         <% @project.users.each do |user| %>
-          <td class="money"><%=m user.balance_for @project %></td>
+          <td class="money <%= css_class_for_balance user.balance_for(@project).round %>"><%=m user.balance_for @project %></td>
         <% end %>
         <td></td>
       </tr>

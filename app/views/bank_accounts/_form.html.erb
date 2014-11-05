@@ -4,38 +4,45 @@
       <h2><%= pluralize(@bank_account.errors.count, "error") %> prohibited this bank_account from being saved:</h2>
 
       <ul>
-      <% @bank_account.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @bank_account.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :bank_name %><br />
-    <%= f.text_field :bank_name %>
+  <div class="form-group">
+    <%= f.label :bank_name, :class => 'control-label' %>
+    <%= f.text_field :bank_name, :class => 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :owner_name %><br />
-    <%= f.text_field :owner_name %>
+
+  <div class="form-group">
+    <%= f.label :owner_name, :class => 'control-label' %>
+    <%= f.text_field :owner_name, :class => 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :account_no %><br />
-    <%= f.text_field :account_no %>
+
+  <div class="form-group">
+    <%= f.label :account_no, :class => 'control-label' %>
+    <%= f.text_field :account_no, :class => 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :blz %><br />
-    <%= f.text_field :blz %>
+
+  <div class="form-group">
+    <%= f.label :blz, :class => 'control-label' %>
+    <%= f.text_field :blz, :class => 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :iban %> (optional)<br />
-    <%= f.text_field :iban %>
+
+  <div class="form-group">
+    <%= f.label :iban, :class => 'control-label' %> (optional)
+    <%= f.text_field :iban, :class => 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :bic %> (optional)<br />
-    <%= f.text_field :bic %>
+
+  <div class="form-group">
+    <%= f.label :bic, :class => 'control-label' %> (optional)
+    <%= f.text_field :bic, :class => 'form-control' %>
   </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= link_to 'Back', back_or_default, :class => 'btn btn-link' %>
+    <%= f.submit :class => 'btn btn-primary' %>
   </div>
 <% end %>

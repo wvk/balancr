@@ -26,4 +26,18 @@ module ApplicationHelper
       link_to name, url, options
     end
   end
+
+  def u(user)
+    %Q(<a href="#{user_url(user)}"><img src="http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(user.email)}?s=16"> #{user.login}</a>).html_safe
+  end
+
+  def css_class_for_balance(balance)
+    if balance > 0
+      'warning'
+    elsif balance < 0
+      'danger'
+    else
+      'success'
+    end
+  end
 end
